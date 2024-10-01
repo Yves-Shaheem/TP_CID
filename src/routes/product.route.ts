@@ -1,12 +1,50 @@
 import { Router } from 'express';
 import {ProductController} from '../controllers/product.controller'
+import { ProductModel } from '../models/product.model';
 
 const router = Router();
 const productController = new ProductController();
 /**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       required:
+ *         - name
+ *         - description
+ *         - category
+ *         - quantity
+ *         - price
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: Identification number of the product
+ *         name:
+ *           type: string
+ *           description: Name of the product
+ *         category:
+ *           type: string
+ *           description: Category of product
+ *         quantity:
+ *           type: number
+ *           description: Number of products available
+ *         price:
+ *           type: number
+ *           description: Category of product
+ *       example:
+ *         id: 1
+ *         name: Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+ *         description: Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday
+ *         category: Men's clothing
+ *         quantity: 40
+ *         price: 109.95
+*/
+/**
  * @swagger
  * /api/products:
  *   get:
+ *     tags: [Products]
  *     summary: Retrieve a list of products
  *     description: Retrieve a list of products from the API. Can be used to populate a list of products in your system.
  *     responses:
@@ -28,7 +66,7 @@ const productController = new ProductController();
  *                  description:
  *                     type: string
  *                     example : iPhone 16 Pro helps you write, express yourself and get things done effortlessly
- *                  categorie:
+ *                  category:
  *                      type: string
  *                      example: Electronics
  *                  quantity:
@@ -40,5 +78,28 @@ const productController = new ProductController();
  *
 */         
 router.get('/products', productController.getAllProducts);
+/**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     summary: Create a new product
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Requête invalide  
+ */      
+router.post('/products', productController.createNewProduct);
 
 export default router;

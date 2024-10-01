@@ -9,13 +9,14 @@ import swaggerUi from 'swagger-ui-express';
 import { config } from './config/config';
 import session from 'express-session';
 import { loadCertificate } from './middlewares/certificat.middleware';
+import fetchAPI  from './data/db.data'
 import path from 'path';
 import redis from "redis";
 import https from 'https';
 
 const app = express();
 app.use(express.json());
-
+fetchAPI()
 // interface pour le nombre de vue d'une page
 declare module 'express-session' {
     interface SessionData {
