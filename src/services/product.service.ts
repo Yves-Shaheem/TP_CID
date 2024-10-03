@@ -16,9 +16,11 @@ export class ProductService {
     });
     return productList;
   }
+  
   public static async createNewProduct(name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
     let code:number;
     let productList: Product[] = await ProductService.getAllProducts();
+    console.log("Service before try")
     try {
       let product = productList.at(-1);
       let id: number = product!.id+1;
@@ -27,6 +29,7 @@ export class ProductService {
       console.log('The new product has been created');
       code = 201;
     } catch (error) {
+      console.log("Inside ERR");
       code = 404
     }
     fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(productList), 'utf8');
@@ -72,6 +75,27 @@ export class ProductService {
     }
     fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(productList), 'utf8');
     return code;
+  }
+  public static async getAllFilteredProducts(filterOption:string, min:number, max:number): Promise<Product[]> {
+    let productList: Product[] = await ProductService.getAllProducts();
+    let filteredProductList: Product[] = [];
+    if(filterOption == "price"){
+      productList.forEach((product) => {
+        if(product.price >= min && product.price <= max){
+          filteredProductList.push(product); 
+        }
+      })
+        return filteredProductList;
+      } else if(filterOption == "quantity"){
+      productList.forEach((product) => {
+        if(product.quantity >= min && product.quantity <= max){
+            filteredProductList.push(product);
+      }
+      })
+      return filteredProductList;
+    }
+    
+    return productList;
   }
 }
 

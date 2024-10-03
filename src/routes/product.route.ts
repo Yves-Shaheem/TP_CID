@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import {ProductController} from '../controllers/product.controller'
-import { ProductModel } from '../models/product.model';
 
 const router = Router();
 const productController = new ProductController();
@@ -40,6 +39,7 @@ const productController = new ProductController();
  *         quantity: 40
  *         price: 109.95
 */
+
 /**
  * @swagger
  * /api/products:
@@ -47,34 +47,28 @@ const productController = new ProductController();
  *     tags: [Products]
  *     summary: Retrieve a list of products
  *     description: Retrieve a list of products from the API. Can be used to populate a list of products in your system.
+ *     parameters:
+ *       - in: query
+ *         name: filterOption
+ *         description: Filter Option which is either 'price' or 'quantity'
+ *         type: string
+ *       - in: query
+ *         name: min
+ *         description: Mininum number to filter
+ *         type: number 
+ *       - in: query
+ *         name: max
+ *         description: Maximum number to filter
+ *         type: number  
  *     responses:
  *       200:
- *         description: A list of products.
+ *         description: List of products retrived successfully.
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                  id:
- *                     type: integer
- *                     example: 1
- *                  name:
- *                     type: string
- *                     example: Iphone 16 pro
- *                  description:
- *                     type: string
- *                     example : iPhone 16 Pro helps you write, express yourself and get things done effortlessly
- *                  category:
- *                      type: string
- *                      example: Electronics
- *                  quantity:
- *                      type: number 
- *                      example: 50
- *                  price:
- *                      type: number
- *                      example: 1700
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Invalid query
  *
 */         
 router.get('/products', productController.getAllProducts);
@@ -99,8 +93,8 @@ router.get('/products', productController.getAllProducts);
  *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Invalid query 
- *       404:
- *         description: Product not found
+ *       401:
+ *         description: Unauthaurised User
  */      
 router.post('/products', productController.createNewProduct);
 /**
@@ -113,7 +107,7 @@ router.post('/products', productController.createNewProduct);
  *      - in: path
  *        name: id
  *        schema:
- *          type: string
+ *          type: number
  *        required: true
  *        description: Product's id
  *     requestBody:
@@ -144,7 +138,7 @@ router.put('/products/:id', productController.modifyProduct);
  *      - in: path
  *        name: id
  *        schema:
- *          type: string
+ *          type: number
  *        required: true
  *        description: Product's id
  *     responses:
