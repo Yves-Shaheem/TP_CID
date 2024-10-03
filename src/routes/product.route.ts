@@ -92,14 +92,75 @@ router.get('/products', productController.getAllProducts);
  *             $ref: '#/components/schemas/Product'
  *     responses:
  *       201:
- *         description: Utilisateur créé avec succès
+ *         description: Product created successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Product'
  *       400:
- *         description: Requête invalide  
+ *         description: Invalid query 
+ *       404:
+ *         description: Product not found
  */      
 router.post('/products', productController.createNewProduct);
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   put:
+ *     summary: Modify a product by id
+ *     tags: [Products]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: Product's id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       200:
+ *         description: Product modified successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Invalid query 
+ */      
+router.put('/products/:id', productController.modifyProduct);
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   delete:
+ *     summary: Delete a product by id
+ *     tags: [Products]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: Product's id
+ *     responses:
+ *       204:
+ *         description: Product deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Invalid query 
+ *       404:
+ *         description: Product not found
+ *       401:
+ *         description: Unauthorized user
+ */      
+router.delete('/products/:id', productController.deleteProduct);
 
 export default router;

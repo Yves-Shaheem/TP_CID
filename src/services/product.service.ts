@@ -29,8 +29,47 @@ export class ProductService {
     } catch (error) {
       code = 404
     }
-
-   
+    fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(productList), 'utf8');
+    return code;
+  }
+  public static async modifyProduct(id:number,name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
+    let code:number;
+    let productList: Product[] = await ProductService.getAllProducts();
+    try {
+      let product = productList.at(id-1);
+      if(product != null || product != undefined){
+          console.log(product);
+          product.name = name;
+          product.description = description;
+          product.price = price;
+          product.quantity = quantity;
+          product.category = category;
+          code = 200;
+          console.log(product);
+      }else{
+        code = 404;
+      }
+      
+    } catch (error) {
+      code = 400
+    }
+    fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(productList), 'utf8');
+    return code;
+  }
+  public static async deleteProduct(id:number):  Promise<number> {
+    let code:number;
+    let productList: Product[] = await ProductService.getAllProducts();
+    try {
+      let product = productList.at(id-1);
+      if(product == null || product == undefined){
+        code = 404;
+      }else{
+          productList.splice(id-1,1);
+          code = 204;
+      }
+    } catch (error) {
+      code = 400
+    }
     fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(productList), 'utf8');
     return code;
   }

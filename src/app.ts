@@ -16,6 +16,7 @@ import https from 'https';
 
 const app = express();
 app.use(express.json());
+// ICI que je fetch les données
 fetchAPI()
 // interface pour le nombre de vue d'une page
 declare module 'express-session' {
