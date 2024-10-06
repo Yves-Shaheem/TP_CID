@@ -3,21 +3,23 @@ require('dotenv').config();
 import express, { Request, Response, NextFunction } from 'express';
 import userRoutes from './routes/user.route';
 import productRoutes from './routes/product.route';
+import authRoutes from './routes/auth.route';
 import { errorMiddleware } from './middlewares/error.middleware';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { config } from './config/config';
 import session from 'express-session';
 import { loadCertificate } from './middlewares/certificat.middleware';
-import fetchAPI  from './data/db.data'
+import fetchDATA  from './data/db.data'
 import path from 'path';
 import redis from "redis";
 import https from 'https';
+import { verifyToken } from './middlewares/auth.middleware';
 
 const app = express();
 app.use(express.json());
 // ICI que je fetch les données
-fetchAPI()
+fetchDATA()
 // interface pour le nombre de vue d'une page
 declare module 'express-session' {
     interface SessionData {
@@ -31,9 +33,21 @@ const swaggerOptions = {
     openapi: '3.0.0',
     info: {
       title: 'Inventory API',
-      version: '1.0.0',
+      version: '1.1.0',
       description: 'A simple API to manage inventory',
     },
+    components: {
+        securitySchemes:{
+            BearerAuth:{
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
+            }
+        }
+    },
+    security: [{
+        BearerAuth: []
+    }]
   },
   apis: ['./src/routes/*.route.ts'], // Fichier où les routes de l'API sont définies
 };
@@ -57,9 +71,11 @@ let certificatOptions = loadCertificate();
 
 // Route de base
 app.get('/', (req, res) => {
-    res.send('Hello, Express avec TypeScript et Configuration!');
+    res.redirect('/v1');
   });
-
+app.get('/admin', verifyToken, (req, res) => {
+    res.send('Bienvenue, administrateur !');
+});
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
@@ -77,13 +93,9 @@ app.get('/', (req, res) => {
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
+app.use('/api', authRoutes);
 
 app.use(errorMiddleware);
-
-app.get('/cause-error', (req, res) => {
-    throw new Error('Erreur simulée!');
-});
-  
 
 const httpApp = https.createServer(certificatOptions, app);
 

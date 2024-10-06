@@ -16,24 +16,21 @@ const productController = new ProductController();
  *         - quantity
  *         - price
  *       properties:
- *         id:
- *           type: number
- *           description: Identification number of the product
  *         name:
  *           type: string
- *           description: Name of the product
+ *           description: Name of the product, the name have to be between 3 and 50 characters and allows only letters and whitespace
  *         category:
  *           type: string
  *           description: Category of product
  *         quantity:
  *           type: number
- *           description: Number of products available
+ *           description: All available products at the moment, a positive integer
  *         price:
  *           type: number
- *           description: Category of product
+ *           description: Price of product, a positive integer or float
  *       example:
  *         id: 1
- *         name: Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+ *         name: Fjallraven
  *         description: Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday
  *         category: Men's clothing
  *         quantity: 40
@@ -46,7 +43,7 @@ const productController = new ProductController();
  *   get:
  *     tags: [Products]
  *     summary: Retrieve a list of products
- *     description: Retrieve a list of products from the API. Can be used to populate a list of products in your system.
+ *     description: Retrieve a list of products from the API. Can be used to populate a list of products in your system. Can Filter with price or quantity, there's minimum number and maximum number to enter otherwise it will be the full product list  
  *     parameters:
  *       - in: query
  *         name: filterOption
@@ -71,7 +68,7 @@ const productController = new ProductController();
  *         description: Invalid query
  *
 */         
-router.get('/products', productController.getAllProducts);
+router.get('/products', productController.getProducts);
 /**
  * @swagger
  * /api/products:
@@ -84,6 +81,7 @@ router.get('/products', productController.getAllProducts);
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Product'
+ 
  *     responses:
  *       201:
  *         description: Product created successfully
@@ -144,10 +142,6 @@ router.put('/products/:id', productController.modifyProduct);
  *     responses:
  *       204:
  *         description: Product deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Invalid query 
  *       404:

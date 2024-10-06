@@ -20,7 +20,6 @@ export class ProductService {
   public static async createNewProduct(name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
     let code:number;
     let productList: Product[] = await ProductService.getAllProducts();
-    console.log("Service before try")
     try {
       let product = productList.at(-1);
       let id: number = product!.id+1;
@@ -78,24 +77,24 @@ export class ProductService {
   }
   public static async getAllFilteredProducts(filterOption:string, min:number, max:number): Promise<Product[]> {
     let productList: Product[] = await ProductService.getAllProducts();
-    let filteredProductList: Product[] = [];
+    let result: Product[] = [];
+    
     if(filterOption == "price"){
       productList.forEach((product) => {
         if(product.price >= min && product.price <= max){
-          filteredProductList.push(product); 
+          result.push(product); 
         }
       })
-        return filteredProductList;
       } else if(filterOption == "quantity"){
       productList.forEach((product) => {
         if(product.quantity >= min && product.quantity <= max){
-            filteredProductList.push(product);
+            result.push(product);
       }
       })
-      return filteredProductList;
+    } else {
+        result = productList;
     }
-    
-    return productList;
+    return result;
   }
 }
 
