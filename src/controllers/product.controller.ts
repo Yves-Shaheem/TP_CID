@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { ProductService } from '../services/product.service';
-import { ProductModel } from '../models/product.model';
+import { logger } from '../utils/logger';
 
 export class ProductController {
   public async getProducts(req: Request, res: Response): Promise<void> {

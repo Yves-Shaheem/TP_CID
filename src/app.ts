@@ -11,8 +11,6 @@ import { config } from './config/config';
 import session from 'express-session';
 import { loadCertificate } from './middlewares/certificat.middleware';
 import fetchDATA  from './data/db.data'
-import path from 'path';
-import redis from "redis";
 import https from 'https';
 import { verifyToken } from './middlewares/auth.middleware';
 
@@ -76,20 +74,7 @@ app.get('/', (req, res) => {
 app.get('/admin', verifyToken, (req, res) => {
     res.send('Bienvenue, administrateur !');
 });
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
-// app.get('/visits', (req, res) => {
-//     if (req.session.views) {
-//       req.session.views++;
-//       console.log("Views:" + req.session.views);
-//       res.send(`Nombre de visites : ${req.session.views}`);
-//     } else {
-//       req.session.views = 1;
-//       console.log("Views:" + req.session.views); 
-//       res.send('Bienvenue pour votre première visite !');
-//     }
-//   });
+
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);

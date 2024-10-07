@@ -3,9 +3,10 @@ import { User } from '../interfaces/user.interface';
 import { ProductModel } from '../models/product.model';
 import * as fs from 'fs';
 import { UserModel } from '../models/user.model';
+import { key } from '../services/auth.service';
 const PATH_TO_JSON_FILE_PRODUCT = 'src/data/products.json';
 const PATH_TO_JSON_FILE_USER = 'src/data/users.json';
-import { key } from '../services/auth.service';
+
 
 
 async function fetchDATA(){
