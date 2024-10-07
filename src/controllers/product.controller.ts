@@ -11,12 +11,14 @@ export class ProductController {
     if(filterOption == "price" || filterOption =="quantity"){
         if(Number.isInteger(min) && Number.isInteger(max)){
           products = await ProductService.getAllFilteredProducts(filterOption, min, max);
+          
         }else{
           products = await ProductService.getAllProducts();
         }
     }else{
       products = await ProductService.getAllProducts();
     }
+    logger.info("The product's list have been recuperated ");
     res.json(products);
     
   }
@@ -30,8 +32,10 @@ export class ProductController {
     let quantity = req.body.quantity;
     if(nameRegex(name) && priceRegex(price) && quantityRegex(quantity)){
       code = await ProductService.createNewProduct(name, description,category,price,quantity);
+      logger.info("The new product have been created succesfully");
     }else{
       code = 400;
+      logger.error("Error to create a new product" + code);
     }
     res.json(code);
   }
@@ -46,8 +50,10 @@ export class ProductController {
     let quantity = req.body.quantity;
     if(nameRegex(name) && priceRegex(price) && quantityRegex(quantity)){
       code = await ProductService.modifyProduct(id,name, description,category,price,quantity);
+      logger.info("The new product have been modified succesfully");
     }else{
       code = 400;
+      logger.error("Error to modify the product" + code);
     }
     res.json(code);
   }
@@ -55,6 +61,11 @@ export class ProductController {
     let id = parseInt(req.params.id);
     console.log(id)
     const code = await ProductService.deleteProduct(id);
+    if(code == 204 || code == 200){
+      logger.info("The new product have been deleted succesfully");
+    }else{
+      logger.error("Error to create a new product" + code);
+    }
     res.json(code);
   }
 

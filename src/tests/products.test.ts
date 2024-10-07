@@ -8,11 +8,11 @@ test("Should return HTTP code if product have been created", async () =>{
     const products = await ProductService.createNewProduct("IPhone", "Iphone 16 with cable", "electronics",1700,80);
     expect(products).toBe(201);
 })
-test("Should return HTTP code if product have been created", async () =>{
+test("Should return HTTP code if product have been modified", async () =>{
     const products = await ProductService.modifyProduct(1,"IPhone", "Iphone 16 with cable", "electronics",1700,80);
     expect(products).toBe(200);
 })
-test("Should return HTTP code if product have been created", async () =>{
+test("Should return HTTP code if product have been deleted", async () =>{
     const products = await ProductService.deleteProduct(1);
     expect(products).toBe(204);
 })
