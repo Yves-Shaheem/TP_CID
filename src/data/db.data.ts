@@ -22,7 +22,10 @@ async function fetchProducts(){
     productModel = new ProductModel(element.id, element.title, element.description, element.category, Math.floor(Math.random() * 100), Number(element.price));
     productList.push(productModel);
   });
-  fs.writeFileSync(PATH_TO_JSON_FILE_PRODUCT, JSON.stringify(productList), 'utf8');
+  if(!fs.existsSync(PATH_TO_JSON_FILE_PRODUCT)){
+    fs.writeFileSync(PATH_TO_JSON_FILE_PRODUCT, JSON.stringify(productList), 'utf8');
+  }
+  
 }
 async function fetchUsers(){
   let userList: User[] = [];
@@ -38,6 +41,7 @@ async function fetchUsers(){
   userModel = new UserModel(21, 'Ad Min', 'admin_123$@example.com',password, "administrator");
   userList.push(userModel);
   fs.writeFileSync(PATH_TO_JSON_FILE_USER, JSON.stringify(userList), 'utf8');
+  
 }
 
 

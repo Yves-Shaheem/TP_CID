@@ -27,7 +27,7 @@ const authController = new AuthController();
  *       401:
  *         description: Unauthaurised User
  */    
-router.post('/users/register', authController.createNewUser);
+router.post('/users/register',authController.createNewUser);
 /**
  * @swagger
  * /api/users/login:
@@ -52,7 +52,7 @@ router.post('/users/register', authController.createNewUser);
  *         description: User logged successfully
  *       400:
  *         description: Invalid query 
- *       403:
+ *       401:
  *         description: Invalid username or password
  */
 router.post('/users/login', authController.login);

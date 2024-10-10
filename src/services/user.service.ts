@@ -3,6 +3,7 @@ import { UserModel } from '../models/user.model';
 import { key } from '../services/auth.service';
 import * as fs from 'fs';
 const PATH_TO_JSON_FILE = 'src/data/users.json';
+import { logger } from '../utils/logger';
 
 export class UserService {
  
@@ -15,6 +16,7 @@ export class UserService {
       userModel = new UserModel(element.id, element.name, element.email, element.password, element.role );
       userList.push(userModel);
     });
+    logger.info("The user's list have been recuperated ");
     return userList;
   }
   public static async createNewUser(name:string, email:string, password: string):  Promise<number> {
@@ -26,8 +28,9 @@ export class UserService {
       let newProduct: UserModel = new UserModel(id, name,email, password, "employee");
       userList.push(newProduct);
       code = 201;
+      logger.info("User have been created successfully");
     } catch (error) {
-      console.log("Inside ERR");
+      logger.error("Something bad happen");
       code = 404
     }
     fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(userList), 'utf8');

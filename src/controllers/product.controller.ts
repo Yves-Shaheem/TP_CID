@@ -18,13 +18,14 @@ export class ProductController {
     }else{
       products = await ProductService.getAllProducts();
     }
-    logger.info("The product's list have been recuperated ");
-    res.json(products);
+    
+    res.status(200).json(products);
     
   }
 
   public async createNewProduct(req: Request, res: Response): Promise<void> {
     let code:number;
+    let message:string;
     let name = req.body.name;
     let description = req.body.description;
     let category = req.body.category;
@@ -32,15 +33,19 @@ export class ProductController {
     let quantity = req.body.quantity;
     if(nameRegex(name) && priceRegex(price) && quantityRegex(quantity)){
       code = await ProductService.createNewProduct(name, description,category,price,quantity);
+      message = "The new product have been created succesfully";
       logger.info("The new product have been created succesfully");
     }else{
       code = 400;
+      message = "Error to create a new product";
       logger.error("Error to create a new product" + code);
+      
     }
-    res.json(code);
+    res.status(code).json(message);
   }
   public async modifyProduct(req: Request, res: Response){    
     let code:number;
+    let message:string;
     let id = parseInt(req.params.id);
     console.log(id)
     let name = req.body.name;
@@ -50,23 +55,28 @@ export class ProductController {
     let quantity = req.body.quantity;
     if(nameRegex(name) && priceRegex(price) && quantityRegex(quantity)){
       code = await ProductService.modifyProduct(id,name, description,category,price,quantity);
+      message = "The new product have been modified succesfully";
       logger.info("The new product have been modified succesfully");
     }else{
       code = 400;
+      message = "Error to modify a new product";
       logger.error("Error to modify the product" + code);
     }
-    res.json(code);
+    res.status(code).json(message);
   }
-  public async deleteProduct(req: Request, res: Response){    
+  public async deleteProduct(req: Request, res: Response){  
+    let message:string;  
     let id = parseInt(req.params.id);
     console.log(id)
     const code = await ProductService.deleteProduct(id);
     if(code == 204 || code == 200){
+      message = "The new product have been deleted succesfully";
       logger.info("The new product have been deleted succesfully");
     }else{
-      logger.error("Error to create a new product" + code);
+      message = "Error to delete a new product";
+      logger.error("Error to delete a new product" + code);
     }
-    res.json(code);
+    res.status(code).json(message);
   }
 
 }

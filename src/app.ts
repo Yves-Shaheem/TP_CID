@@ -71,9 +71,7 @@ let certificatOptions = loadCertificate();
 app.get('/', (req, res) => {
     res.redirect('/v1');
   });
-app.get('/admin', verifyToken, (req, res) => {
-    res.send('Bienvenue, administrateur !');
-});
+
 
 
 app.use('/api', userRoutes);

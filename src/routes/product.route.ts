@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import {ProductController} from '../controllers/product.controller'
-
+import { verifyToken } from '../middlewares/auth.middleware';
+import { roleMiddleware } from '../middlewares/roles.middleware';
+import { allRole, administratorRole, employeeRole } from '../utils/role.util';
 const router = Router();
 const productController = new ProductController();
 /**
@@ -66,9 +68,12 @@ const productController = new ProductController();
  *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Invalid query
+ *       403:
+ *         description: Access denied or no token provided.
+ * 
  *
 */         
-router.get('/products', productController.getProducts);
+router.get('/products', verifyToken, roleMiddleware(allRole), productController.getProducts);
 /**
  * @swagger
  * /api/products:
@@ -84,17 +89,13 @@ router.get('/products', productController.getProducts);
  
  *     responses:
  *       201:
- *         description: Product created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
+ *         description: Product created successfully.
  *       400:
- *         description: Invalid query 
- *       401:
- *         description: Unauthaurised User
+ *         description: Invalid query.
+ *       403:
+ *         description: Access denied or no token provided.
  */      
-router.post('/products', productController.createNewProduct);
+router.post('/products',verifyToken, roleMiddleware(administratorRole), productController.createNewProduct);
 /**
  * @swagger
  * /api/products/{id}:
@@ -117,14 +118,14 @@ router.post('/products', productController.createNewProduct);
  *     responses:
  *       200:
  *         description: Product modified successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Invalid query 
+ *       403:
+ *         description: Access denied or no token provided.
+ *       404:
+ *         description: Product not found. 
  */      
-router.put('/products/:id', productController.modifyProduct);
+router.put('/products/:id',verifyToken, roleMiddleware(administratorRole), productController.modifyProduct);
 
 /**
  * @swagger
@@ -146,9 +147,9 @@ router.put('/products/:id', productController.modifyProduct);
  *         description: Invalid query 
  *       404:
  *         description: Product not found
- *       401:
+ *       403:
  *         description: Unauthorized user
  */      
-router.delete('/products/:id', productController.deleteProduct);
+router.delete('/products/:id',verifyToken, roleMiddleware(administratorRole), productController.deleteProduct);
 
 export default router;

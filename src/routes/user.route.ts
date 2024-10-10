@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.controller';
+import { allRole, administratorRole, employeeRole } from '../utils/role.util';
+import { verifyToken } from '../middlewares/auth.middleware';
+import { roleMiddleware } from '../middlewares/roles.middleware';
 
 const router = Router();
 const userController = new UserController();
@@ -43,7 +46,10 @@ const userController = new UserController();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Invalid query
+ *  
  */
-router.get('/users', userController.getAllUsers);
+router.get('/users', verifyToken, roleMiddleware(administratorRole), userController.getAllUsers);
 
 export default router;

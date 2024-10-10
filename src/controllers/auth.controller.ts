@@ -13,21 +13,19 @@ export class AuthController {
         let email = req.body.email; 
         let password = encryptedPassword;
         code = await UserService.createNewUser(name,email,password);
-        logger.info("L'utilisateur a été créé avec success");
-        res.json(code);
+        res.status(code);
         
     };
     public async login(req: Request, res: Response): Promise<void> {
         let email = req.body.email;
         let password = req.body.password;
         const token = await AuthService.login(email, password);
-        
         if(token != null){
             logger.info("L'utilisateur a connecté avec succes");
-            res.json({token})
+            res.status(201).json({token})
 
         }else{
-            res.json(403);
+            res.status(401).json("Invalid email or password");
         }
         
     }

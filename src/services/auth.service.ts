@@ -7,9 +7,8 @@ import { UserService } from '../services/user.service';
 export class AuthService {
   public static async login(email: string, password: string): Promise<string | null> {
     const user = await UserService.findByEmail(email);
-    if (user && password == key.decrypt(user.password, 'utf8')) {
+    if (user && key.decrypt(user.password, 'utf8') == password ) {
       const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
-      console.log(JWT_SECRET);
       return token;
     }else{
       return null;
