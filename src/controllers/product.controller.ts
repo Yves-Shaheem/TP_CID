@@ -34,7 +34,6 @@ export class ProductController {
     if(nameRegex(name) && priceRegex(price) && quantityRegex(quantity)){
       code = await ProductService.createNewProduct(name, description,category,price,quantity);
       message = "The new product have been created succesfully";
-      logger.info("The new product have been created succesfully");
     }else{
       code = 400;
       message = "Error to create a new product";
@@ -56,7 +55,6 @@ export class ProductController {
     if(nameRegex(name) && priceRegex(price) && quantityRegex(quantity)){
       code = await ProductService.modifyProduct(id,name, description,category,price,quantity);
       message = "The new product have been modified succesfully";
-      logger.info("The new product have been modified succesfully");
     }else{
       code = 400;
       message = "Error to modify a new product";
@@ -69,9 +67,8 @@ export class ProductController {
     let id = parseInt(req.params.id);
     console.log(id)
     const code = await ProductService.deleteProduct(id);
-    if(code == 204 || code == 200){
+    if(code == 204){
       message = "The new product have been deleted succesfully";
-      logger.info("The new product have been deleted succesfully");
     }else{
       message = "Error to delete a new product";
       logger.error("Error to delete a new product" + code);
