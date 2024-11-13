@@ -4,15 +4,14 @@ import { ProductModel } from '../models/product.model';
 import * as fs from 'fs';
 import { UserModel } from '../models/user.model';
 import { key } from '../services/auth.service';
-const { MongoClient } = require('mongodb');
-const uri =  "mongodb+srv://user:user@tp03.vdohd.mongodb.net/?retryWrites=true&w=majority&appName=TP03";
-const client = new MongoClient(uri);
+const uri = "mongodb+srv://user:user@tp03.vdohd.mongodb.net/?retryWrites=true&w=majority&appName=TP03"
+const mongoose = require('mongoose');
 const PATH_TO_JSON_FILE_PRODUCT = 'src/data/products.json';
 const PATH_TO_JSON_FILE_USER = 'src/data/users.json';
 
 
 
-async function fetchDATA(){
+export async function fetchDATA(){
   fetchProducts()
   fetchUsers()
 }
@@ -47,19 +46,19 @@ async function fetchUsers(){
   
 }
 
-
-export default fetchDATA;
-
-async function run() {
+export function connection() {
   try {
-    await client.connect();
-    const database = client.db('TP03');
-    const utilisateurs = database.collection('products');
-
-    const nouvelUtilisateur = { nom: "John", age: 28, email: "john@example.com" };
-    const resultat = await utilisateurs.insertOne(nouvelUtilisateur);
-    console.log(`Nouveau document inséré avec l'ID ${resultat.insertedId}`);
-  } finally {
-    await client.close();
+    mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'Erreur de connexion à MongoDB:'));
+    db.once('open', () => {
+      console.log('Connexion à MongoDB réussie');
+    });
+  } catch(error){
+      console.log(error);
   }
 }
+connection()
