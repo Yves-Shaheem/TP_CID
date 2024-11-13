@@ -4,6 +4,9 @@ import { ProductModel } from '../models/product.model';
 import * as fs from 'fs';
 import { UserModel } from '../models/user.model';
 import { key } from '../services/auth.service';
+const { MongoClient } = require('mongodb');
+const uri =  "mongodb+srv://user:user@tp03.vdohd.mongodb.net/?retryWrites=true&w=majority&appName=TP03";
+const client = new MongoClient(uri);
 const PATH_TO_JSON_FILE_PRODUCT = 'src/data/products.json';
 const PATH_TO_JSON_FILE_USER = 'src/data/users.json';
 
@@ -46,3 +49,17 @@ async function fetchUsers(){
 
 
 export default fetchDATA;
+
+async function run() {
+  try {
+    await client.connect();
+    const database = client.db('TP03');
+    const utilisateurs = database.collection('products');
+
+    const nouvelUtilisateur = { nom: "John", age: 28, email: "john@example.com" };
+    const resultat = await utilisateurs.insertOne(nouvelUtilisateur);
+    console.log(`Nouveau document inséré avec l'ID ${resultat.insertedId}`);
+  } finally {
+    await client.close();
+  }
+}
