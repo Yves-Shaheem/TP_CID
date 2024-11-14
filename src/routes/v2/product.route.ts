@@ -43,7 +43,7 @@ const productController = new ProductController();
  * @swagger
  * /v2/products:
  *   get:
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     summary: Retrieve a list of products
  *     description: Retrieve a list of products from the API. Can be used to populate a list of products in your system. Can Filter with price or quantity, there's minimum number and maximum number to enter otherwise it will be the full product list  
  *     parameters:
@@ -79,7 +79,7 @@ router.get('/products', verifyToken, roleMiddleware(allRole), productController.
  * /v2/products:
  *   post:
  *     summary: Create a new product
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     requestBody:
  *       required: true
  *       content:
@@ -101,7 +101,7 @@ router.post('/products',verifyToken, roleMiddleware(administratorRole), productC
  * /v2/products/{id}:
  *   put:
  *     summary: Modify a product by id
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     parameters:
  *      - in: path
  *        name: id
@@ -132,7 +132,7 @@ router.put('/products/:id',verifyToken, roleMiddleware(administratorRole), produ
  * /v2/products/{id}:
  *   delete:
  *     summary: Delete a product by id
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     parameters:
  *      - in: path
  *        name: id

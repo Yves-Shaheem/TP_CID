@@ -8,7 +8,7 @@ const authController = new AuthController();
  * /v1/users/register:
  *   post:
  *     summary: Create a new User
- *     tags: [Users]
+ *     tags: [Users-V1]
  *     requestBody:
  *       required: true
  *       content:
@@ -33,7 +33,7 @@ router.post('/users/register',authController.createNewUser);
  * /v1/users/login:
  *   post:
  *     summary: Login
- *     tags: [Users]
+ *     tags: [Users-V1]
  *     requestBody:
  *       required: true
  *       content:

@@ -37,7 +37,7 @@ const userController = new UserController();
  * /v1/users:
  *   get:
  *     summary: Retrieve a list of users
- *     tags: [Users]
+ *     tags: [Users-V1]
  *     description: Retrieve a list of users from the API. Can be used to populate a list of users in your system.
  *     responses:
  *       200:
