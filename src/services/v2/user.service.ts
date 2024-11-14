@@ -21,8 +21,9 @@ export class UserService {
       role:"administrator"
     })
     try {
+      console.log(User);
       const newUser = await user.save();
-      console.log(newUser);
+      
       logger.info("The user have been created");
       code = 201;
     } catch (error) {

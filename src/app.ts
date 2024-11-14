@@ -4,9 +4,9 @@ import express from 'express';
 import userRoutes from './routes/v1/user.route';
 import productRoutes from './routes/v1/product.route';
 import authRoutes from './routes/v1/auth.route';
-import userRoutesV2 from './routes/v1/user.route';
-import productRoutesV2 from './routes/v1/product.route';
-import authRoutesV2 from './routes/v1/auth.route';
+import userRoutesV2 from './routes/v2/user.route';
+import productRoutesV2 from './routes/v2/product.route';
+import authRoutesV2 from './routes/v2/auth.route';
 import { errorMiddleware } from './middlewares/error.middleware';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -15,8 +15,6 @@ import session from 'express-session';
 import { loadCertificate } from './middlewares/certificat.middleware';
 import {DB_connection, fetchDATA}  from './data/db.data'
 import https from 'https';
-import { url } from 'inspector';
-
 
 const app = express();
 app.use(express.json());

@@ -49,10 +49,7 @@ async function fetchUsers(){
 
 export function DB_connection(uri:String) {
   try {
-    mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Erreur de connexion à MongoDB:'));
     db.once('open', () => {

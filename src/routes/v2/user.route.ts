@@ -3,6 +3,7 @@ import { UserController } from '../../controllers/v2/user.controller';
 import { allRole, administratorRole, employeeRole } from '../../utils/role.util';
 import { verifyToken } from '../../middlewares/auth.middleware';
 import { roleMiddleware } from '../../middlewares/roles.middleware';
+import { User } from '../../models/v2/user.model';
 
 const router = Router();
 const userController = new UserController();
