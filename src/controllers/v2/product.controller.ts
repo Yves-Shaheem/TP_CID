@@ -1,26 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
-import { ProductService } from '../services/product.service';
-import { logger } from '../utils/logger';
-
+import { ProductService } from '../../services/v2/product.service';
+import { logger } from '../../utils/logger';
 export class ProductController {
   public async getProducts(req: Request, res: Response): Promise<void> {
     let filterOption = req.query.filterOption as string;
     let min = parseInt(req.query.min as string);
     let max = parseInt(req.query.max as string);
-    let products = [];
     if(filterOption == "price" || filterOption =="quantity"){
         if(Number.isInteger(min) && Number.isInteger(max)){
-          products = await ProductService.getAllFilteredProducts(filterOption, min, max);
-          
+          let products = await ProductService.getAllFilteredProducts(filterOption, min, max);
+          res.status(200).json(products);
         }else{
-          products = await ProductService.getAllProducts();
+          let products = await ProductService.getAllProducts();
+          res.status(200).json(products);
         }
     }else{
-      products = await ProductService.getAllProducts();
+      let products = await ProductService.getAllProducts();
+      res.status(200).json(products);
     }
-    
-    res.status(200).json(products);
-    
   }
 
   public async createNewProduct(req: Request, res: Response): Promise<void> {

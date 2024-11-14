@@ -1,9 +1,10 @@
-import { Product } from '../interfaces/product.interface';
-import { User } from '../interfaces/user.interface';
-import { ProductModel } from '../models/product.model';
+import { IProduct } from '../interfaces/v1/product.interface';
+import { User } from '../interfaces/v1/user.interface';
+import { ProductModel } from '../models/v1/product.model';
 import * as fs from 'fs';
-import { UserModel } from '../models/user.model';
-import { key } from '../services/auth.service';
+import { UserModel } from '../models/v1/user.model';
+import { key } from '../services/v1/auth.service';
+import { env } from 'node:process';
 const uri = "mongodb+srv://user:user@tp03.vdohd.mongodb.net/?retryWrites=true&w=majority&appName=TP03"
 const mongoose = require('mongoose');
 const PATH_TO_JSON_FILE_PRODUCT = 'src/data/products.json';
@@ -16,7 +17,7 @@ export async function fetchDATA(){
   fetchUsers()
 }
 async function fetchProducts(){
-  let productList: Product[] = [];
+  let productList: IProduct[] = [];
   let productModel: ProductModel;
   const response = await fetch('https://fakestoreapi.com/products');
   const json = await response.json();
@@ -46,7 +47,7 @@ async function fetchUsers(){
   
 }
 
-export function connection() {
+export function DB_connection(uri:String) {
   try {
     mongoose.connect(uri, {
       useNewUrlParser: true,
@@ -61,4 +62,3 @@ export function connection() {
       console.log(error);
   }
 }
-connection()

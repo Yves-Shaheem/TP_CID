@@ -1,5 +1,5 @@
-import { IProduct } from '../interfaces/v2/product.interface';
-const mongoose = require('mongoose');
+import { IProduct } from '../../interfaces/v2/product.interface';
+import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema<IProduct>({
     name: {type: String, required: true},
@@ -9,6 +9,4 @@ const schema = new mongoose.Schema<IProduct>({
     price:{type: Number, required: true}
 
 })
-const Product = mongoose.model<IProduct>('Product', schema);
-
-module.exports = Product;
+export const Product = mongoose.model('Product', schema);

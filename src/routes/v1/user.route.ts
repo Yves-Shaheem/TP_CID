@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/user.controller';
-import { allRole, administratorRole, employeeRole } from '../utils/role.util';
-import { verifyToken } from '../middlewares/auth.middleware';
-import { roleMiddleware } from '../middlewares/roles.middleware';
+import { UserController } from '../../controllers/v1/user.controller';
+import { allRole, administratorRole, employeeRole } from '../../utils/role.util';
+import { verifyToken } from '../../middlewares/auth.middleware';
+import { roleMiddleware } from '../../middlewares/roles.middleware';
 
 const router = Router();
 const userController = new UserController();
@@ -34,7 +34,7 @@ const userController = new UserController();
 */
 /**
  * @swagger
- * /api/users:
+ * /v1/users:
  *   get:
  *     summary: Retrieve a list of users
  *     tags: [Users]

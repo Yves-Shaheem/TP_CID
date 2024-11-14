@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import {ProductController} from '../controllers/product.controller'
-import { verifyToken } from '../middlewares/auth.middleware';
-import { roleMiddleware } from '../middlewares/roles.middleware';
-import { allRole, administratorRole, employeeRole } from '../utils/role.util';
+import {ProductController} from '../../controllers/v1/product.controller'
+import { verifyToken } from '../../middlewares/auth.middleware';
+import { roleMiddleware } from '../../middlewares/roles.middleware';
+import { allRole, administratorRole, employeeRole } from '../../utils/role.util';
 const router = Router();
 const productController = new ProductController();
 /**
@@ -41,7 +41,7 @@ const productController = new ProductController();
 
 /**
  * @swagger
- * /api/products:
+ * /v1/products:
  *   get:
  *     tags: [Products]
  *     summary: Retrieve a list of products
@@ -76,7 +76,7 @@ const productController = new ProductController();
 router.get('/products', verifyToken, roleMiddleware(allRole), productController.getProducts);
 /**
  * @swagger
- * /api/products:
+ * /v1/products:
  *   post:
  *     summary: Create a new product
  *     tags: [Products]
@@ -98,7 +98,7 @@ router.get('/products', verifyToken, roleMiddleware(allRole), productController.
 router.post('/products',verifyToken, roleMiddleware(administratorRole), productController.createNewProduct);
 /**
  * @swagger
- * /api/products/{id}:
+ * /v1/products/{id}:
  *   put:
  *     summary: Modify a product by id
  *     tags: [Products]
@@ -129,7 +129,7 @@ router.put('/products/:id',verifyToken, roleMiddleware(administratorRole), produ
 
 /**
  * @swagger
- * /api/products/{id}:
+ * /v1/products/{id}:
  *   delete:
  *     summary: Delete a product by id
  *     tags: [Products]

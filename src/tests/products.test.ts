@@ -1,4 +1,4 @@
-import { ProductService } from "../services/product.service";
+import { ProductService } from "../services/v1/product.service";
 
 test("Should return all products", async () =>{
     const products =  ProductService.getAllProducts;

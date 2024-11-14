@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { AuthController } from '../controllers/auth.controller';
+import { AuthController } from '../../controllers/v1/auth.controller';
 
 const router = Router();
 const authController = new AuthController();
 /**
  * @swagger
- * /api/users/register:
+ * /v1/users/register:
  *   post:
  *     summary: Create a new User
  *     tags: [Users]
@@ -30,7 +30,7 @@ const authController = new AuthController();
 router.post('/users/register',authController.createNewUser);
 /**
  * @swagger
- * /api/users/login:
+ * /v1/users/login:
  *   post:
  *     summary: Login
  *     tags: [Users]

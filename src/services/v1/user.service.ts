@@ -1,9 +1,9 @@
-import { User } from '../interfaces/user.interface';
-import { UserModel } from '../models/user.model';
-import { key } from '../services/auth.service';
+import { User } from '../../interfaces/v1/user.interface';
+import { UserModel } from '../../models/v1/user.model';
+import { key } from './auth.service';
 import * as fs from 'fs';
 const PATH_TO_JSON_FILE = 'src/data/users.json';
-import { logger } from '../utils/logger';
+import { logger } from '../../utils/logger';
 
 export class UserService {
  

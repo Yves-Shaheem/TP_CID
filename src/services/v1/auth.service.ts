@@ -1,8 +1,8 @@
 import NodeRSA from 'node-rsa';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs'; 
-import { JWT_SECRET } from '../utils/jwt.util';
-import { UserService } from '../services/user.service';
+import { JWT_SECRET } from '../../utils/jwt.util';
+import { UserService } from './user.service';
 
 export class AuthService {
   public static async login(email: string, password: string): Promise<string | null> {
@@ -10,7 +10,7 @@ export class AuthService {
     if (user && key.decrypt(user.password, 'utf8') == password ) {
       const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
       return token;
-    }else{
+    }else{      
       return null;
     } 
   }
