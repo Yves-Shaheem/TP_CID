@@ -18,7 +18,7 @@ export class UserService {
       name: name,
       email:email,
       password:password,
-      role:"administrator"
+      role:"employee"
     })
     try {
       console.log(User);

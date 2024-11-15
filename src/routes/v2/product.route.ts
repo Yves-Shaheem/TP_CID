@@ -106,7 +106,7 @@ router.post('/products',verifyToken, roleMiddleware(administratorRole), productC
  *      - in: path
  *        name: id
  *        schema:
- *          type: number
+ *          type: string
  *        required: true
  *        description: Product's id
  *     requestBody:
@@ -137,7 +137,7 @@ router.put('/products/:id',verifyToken, roleMiddleware(administratorRole), produ
  *      - in: path
  *        name: id
  *        schema:
- *          type: number
+ *          type: string
  *        required: true
  *        description: Product's id
  *     responses:

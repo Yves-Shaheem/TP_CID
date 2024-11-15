@@ -42,7 +42,7 @@ export class ProductController {
   public async modifyProduct(req: Request, res: Response){    
     let code:number;
     let message:string;
-    let id = parseInt(req.params.id);
+    let id = req.params.id;
     console.log(id)
     let name = req.body.name;
     let description = req.body.description;
@@ -61,7 +61,7 @@ export class ProductController {
   }
   public async deleteProduct(req: Request, res: Response){  
     let message:string;  
-    let id = parseInt(req.params.id);
+    let id = req.params.id;
     console.log(id)
     const code = await ProductService.deleteProduct(id);
     if(code == 204){
@@ -70,7 +70,7 @@ export class ProductController {
       message = "Error to delete a new product";
       logger.error("Error to delete a new product" + code);
     }
-    res.status(code).json(message);
+    res.status(code).send(message);
   }
 
 }

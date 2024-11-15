@@ -31,7 +31,7 @@ export class ProductService {
     }
     return code;
   }
-  public static async modifyProduct(id:number,name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
+  public static async modifyProduct(id:string,name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
     let code:number;
     let updatedData = {
         name:name,
@@ -51,7 +51,7 @@ export class ProductService {
     }
     return code;
   }
-  public static async deleteProduct(id:number):  Promise<number> {
+  public static async deleteProduct(id:string):  Promise<number> {
     let code:number;
     try {
       const res = await Product.findByIdAndDelete(id);

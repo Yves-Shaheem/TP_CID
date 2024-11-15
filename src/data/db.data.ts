@@ -47,9 +47,9 @@ async function fetchUsers(){
   
 }
 
-export async function DB_connection(uri:String) {
+export function DB_connection(uri:String) {
   try {
-    await mongoose.connect(uri);
+    mongoose.connect(uri);
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Erreur de connexion à MongoDB:'));
     db.once('open', () => {
