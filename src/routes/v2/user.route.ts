@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/user.controller';
-import { allRole, administratorRole, employeeRole } from '../utils/role.util';
-import { verifyToken } from '../middlewares/auth.middleware';
-import { roleMiddleware } from '../middlewares/roles.middleware';
+import { UserController } from '../../controllers/v2/user.controller';
+import { allRole, administratorRole, employeeRole } from '../../utils/role.util';
+import { verifyToken } from '../../middlewares/auth.middleware';
+import { roleMiddleware } from '../../middlewares/roles.middleware';
+import { User } from '../../models/v2/user.model';
 
 const router = Router();
 const userController = new UserController();
@@ -34,10 +35,10 @@ const userController = new UserController();
 */
 /**
  * @swagger
- * /api/users:
+ * /v2/users:
  *   get:
  *     summary: Retrieve a list of users
- *     tags: [Users]
+ *     tags: [Users-V2]
  *     description: Retrieve a list of users from the API. Can be used to populate a list of users in your system.
  *     responses:
  *       200:
@@ -50,6 +51,6 @@ const userController = new UserController();
  *         description: Invalid query
  *  
  */
-router.get('/users', verifyToken, roleMiddleware(administratorRole), userController.getAllUsers);
+router.get('/users',verifyToken, roleMiddleware(administratorRole), userController.getAllUsers);
 
 export default router;

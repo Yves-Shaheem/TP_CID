@@ -1,4 +1,4 @@
-import { User } from '../interfaces/user.interface';
+import { User } from '../../interfaces/v1/user.interface';
 
 type allowedValues = "administrator" | "employee";
 export class UserModel implements User {

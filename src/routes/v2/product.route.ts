@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import {ProductController} from '../controllers/product.controller'
-import { verifyToken } from '../middlewares/auth.middleware';
-import { roleMiddleware } from '../middlewares/roles.middleware';
-import { allRole, administratorRole, employeeRole } from '../utils/role.util';
+import {ProductController} from '../../controllers/v2/product.controller'
+import { verifyToken } from '../../middlewares/auth.middleware';
+import { roleMiddleware } from '../../middlewares/roles.middleware';
+import { allRole, administratorRole, employeeRole } from '../../utils/role.util';
 const router = Router();
 const productController = new ProductController();
 /**
@@ -41,9 +41,9 @@ const productController = new ProductController();
 
 /**
  * @swagger
- * /api/products:
+ * /v2/products:
  *   get:
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     summary: Retrieve a list of products
  *     description: Retrieve a list of products from the API. Can be used to populate a list of products in your system. Can Filter with price or quantity, there's minimum number and maximum number to enter otherwise it will be the full product list  
  *     parameters:
@@ -74,12 +74,14 @@ const productController = new ProductController();
  *
 */         
 router.get('/products', verifyToken, roleMiddleware(allRole), productController.getProducts);
+
+router.get('/products2', productController.getProducts);
 /**
  * @swagger
- * /api/products:
+ * /v2/products:
  *   post:
  *     summary: Create a new product
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     requestBody:
  *       required: true
  *       content:
@@ -98,15 +100,15 @@ router.get('/products', verifyToken, roleMiddleware(allRole), productController.
 router.post('/products',verifyToken, roleMiddleware(administratorRole), productController.createNewProduct);
 /**
  * @swagger
- * /api/products/{id}:
+ * /v2/products/{id}:
  *   put:
  *     summary: Modify a product by id
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     parameters:
  *      - in: path
  *        name: id
  *        schema:
- *          type: number
+ *          type: string
  *        required: true
  *        description: Product's id
  *     requestBody:
@@ -129,15 +131,15 @@ router.put('/products/:id',verifyToken, roleMiddleware(administratorRole), produ
 
 /**
  * @swagger
- * /api/products/{id}:
+ * /v2/products/{id}:
  *   delete:
  *     summary: Delete a product by id
- *     tags: [Products]
+ *     tags: [Products-V2]
  *     parameters:
  *      - in: path
  *        name: id
  *        schema:
- *          type: number
+ *          type: string
  *        required: true
  *        description: Product's id
  *     responses:

@@ -1,14 +1,14 @@
 import { json } from 'stream/consumers';
-import { Product } from '../interfaces/product.interface';
-import { ProductModel } from '../models/product.model';
+import { IProduct } from '../../interfaces/v1/product.interface';
+import { ProductModel } from '../../models/v1/product.model';
 import * as fs from 'fs';
-import { logger } from '../utils/logger';
+import { logger } from '../../utils/logger';
 const PATH_TO_JSON_FILE = 'src/data/products.json';
 
 export class ProductService {
-  public static async getAllProducts(): Promise<Product[]> {
+  public static async getAllProducts(): Promise<IProduct[]> {
     let productModel: ProductModel;
-    let productList: Product[] = [];
+    let productList: IProduct[] = [];
     const response = fs.readFileSync(PATH_TO_JSON_FILE, 'utf8');
     const json = await JSON.parse(response);
     json.forEach((element: any) => {
@@ -21,7 +21,7 @@ export class ProductService {
   
   public static async createNewProduct(name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
     let code:number;
-    let productList: Product[] = await ProductService.getAllProducts();
+    let productList: IProduct[] = await ProductService.getAllProducts();
     try {
       let product = productList.at(-1);
       let id: number = product!.id+1;
@@ -39,7 +39,7 @@ export class ProductService {
   }
   public static async modifyProduct(id:number,name:string, description:string, category: string, price:number, quantity:number):  Promise<number> {
     let code:number;
-    let productList: Product[] = await ProductService.getAllProducts();
+    let productList: IProduct[] = await ProductService.getAllProducts();
     try {
       let product = productList.at(id-1);
       if(product != null || product != undefined){
@@ -65,7 +65,7 @@ export class ProductService {
   }
   public static async deleteProduct(id:number):  Promise<number> {
     let code:number;
-    let productList: Product[] = await ProductService.getAllProducts();
+    let productList: IProduct[] = await ProductService.getAllProducts();
     try {
       let product = productList.at(id-1);
       if(product == null || product == undefined){
@@ -82,9 +82,9 @@ export class ProductService {
     fs.writeFileSync(PATH_TO_JSON_FILE, JSON.stringify(productList), 'utf8');
     return code;
   }
-  public static async getAllFilteredProducts(filterOption:string, min:number, max:number): Promise<Product[]> {
-    let productList: Product[] = await ProductService.getAllProducts();
-    let result: Product[] = [];
+  public static async getAllFilteredProducts(filterOption:string, min:number, max:number): Promise<IProduct[]> {
+    let productList: IProduct[] = await ProductService.getAllProducts();
+    let result: IProduct[] = [];
     if(min > max){
       let temp = max;
       max = min;
