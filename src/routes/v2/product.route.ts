@@ -74,6 +74,8 @@ const productController = new ProductController();
  *
 */         
 router.get('/products', verifyToken, roleMiddleware(allRole), productController.getProducts);
+
+router.get('/products2', productController.getProducts);
 /**
  * @swagger
  * /v2/products:

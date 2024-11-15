@@ -3,7 +3,8 @@
   "version": "1.0.1",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test":"SET NODE_ENV=test & jest",
+    "test:load": "npx artillery run src/tests/test-load.yaml > report.txt",
     "start": "ts-node-dev --respawn src/index.ts"
   },
   "keywords": [],

@@ -6,4 +6,4 @@ config:
 scenarios:
   - flow:
       - get:
-          url: "/api/users"
+          url: "/v2/products2"

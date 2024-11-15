@@ -51,6 +51,6 @@ const userController = new UserController();
  *         description: Invalid query
  *  
  */
-router.get('/users', userController.getAllUsers);
+router.get('/users',verifyToken, roleMiddleware(administratorRole), userController.getAllUsers);
 
 export default router;
