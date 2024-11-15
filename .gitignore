@@ -36,3 +36,6 @@ build/
 
 # Ignorer les fichiers JSON
 data/*.json
+# Ignorer les fichiers de resultat de test
+report.txt
+output.json

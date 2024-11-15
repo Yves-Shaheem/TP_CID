@@ -4,8 +4,6 @@ import { ProductModel } from '../models/v1/product.model';
 import * as fs from 'fs';
 import { UserModel } from '../models/v1/user.model';
 import { key } from '../services/v1/auth.service';
-import { env } from 'node:process';
-const uri = "mongodb+srv://user:user@tp03.vdohd.mongodb.net/?retryWrites=true&w=majority&appName=TP03"
 const mongoose = require('mongoose');
 const PATH_TO_JSON_FILE_PRODUCT = 'src/data/products.json';
 const PATH_TO_JSON_FILE_USER = 'src/data/users.json';
