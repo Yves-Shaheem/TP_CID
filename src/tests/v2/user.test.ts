@@ -6,6 +6,7 @@ import {DB_connection}  from '../../data/db.data'
 import { Product } from '../../models/v2/product.model';
 import { User } from '../../models/v2/user.model';
 beforeAll(async () => {
+    console.log(config.databaseUrl);
     DB_connection(config.databaseUrl);
     await User.deleteMany({"name":"Test"});
 });
