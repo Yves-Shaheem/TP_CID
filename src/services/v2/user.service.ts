@@ -1,5 +1,6 @@
 import { User } from '../../models/v2/user.model';
 import { logger } from '../../utils/logger';
+import bcrypt from 'bcryptjs'; 
 
 export class UserService {
  
@@ -14,11 +15,12 @@ export class UserService {
   }
   public static async createNewUser(name:string, email:string, password: string):  Promise<number> {
     let code:number;
+    let encryptedPwd = await bcrypt.hash(password, 10);
     const user = new User({
       name: name,
       email:email,
-      password:password,
-      role:"employee"
+      password:encryptedPwd,
+      role:"administrator"
     })
     try {
       console.log(User);

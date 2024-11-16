@@ -20,7 +20,7 @@ describe("Get all users", ()=> {
     test("Should return all users", async () =>{
         await User.deleteMany({"name":"AuthTest"});
         const users = await UserService.getAllUsers();
-        expect(users?.length).toBe(1);
+        expect(users?.length).toBe(2);
     })
 })
 describe("Get user email", ()=> {

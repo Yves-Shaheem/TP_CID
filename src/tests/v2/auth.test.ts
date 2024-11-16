@@ -22,10 +22,10 @@ afterAll(async () => {
     await User.deleteMany({"name":"AuthTest"});
 });
 
-describe("Create a new product", () => {
-    test("Should return HTTP code if product have been created", async () =>{
+describe("Test the login method", () => {
+    test("Check if the token correspond", async () =>{
         const token = await AuthService.login("test@gmail.com","password");
-        if(token != null){
+        if(token != ""){
         jwt.verify(token, JWT_SECRET, (err, user) => {
             if (err) return console.log("Error test login");
             let user1 : any = user;
