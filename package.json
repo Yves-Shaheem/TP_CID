@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "main": "index.js",
   "scripts": {
-    "test": "SET NODE_ENV=test & jest --watchAll --detectOpenHandles --json --outputFile=output.json",
+    "test": "SET NODE_ENV=test & jest --json --outputFile=output.json",
     "test:load": "npx artillery run src/tests/test-load.yaml > report.txt",
     "start": "ts-node-dev --respawn src/index.ts"
   },
