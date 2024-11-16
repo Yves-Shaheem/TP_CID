@@ -13,7 +13,8 @@ import swaggerUi from 'swagger-ui-express';
 import { config } from './config/config';
 import session from 'express-session';
 import { loadCertificate } from './middlewares/certificat.middleware';
-import {DB_connection, fetchDATA}  from './data/db.data'
+import { fetchDATA}  from './data/db.data'
+import {DB_connection}  from './utils/db.util'
 import https from 'https';
 
 

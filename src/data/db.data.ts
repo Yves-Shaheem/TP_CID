@@ -4,7 +4,6 @@ import { ProductModel } from '../models/v1/product.model';
 import * as fs from 'fs';
 import { UserModel } from '../models/v1/user.model';
 import { key } from '../services/v1/auth.service';
-const mongoose = require('mongoose');
 const PATH_TO_JSON_FILE_PRODUCT = 'src/data/products.json';
 const PATH_TO_JSON_FILE_USER = 'src/data/users.json';
 
@@ -45,15 +44,4 @@ async function fetchUsers(){
   
 }
 
-export function DB_connection(uri:String) {
-  try {
-    mongoose.connect(uri);
-    const db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'Erreur de connexion à MongoDB:'));
-    db.once('open', () => {
-      console.log('Connexion à MongoDB réussie');
-    });
-  } catch(error){
-      console.log(error);
-  }
-}
+

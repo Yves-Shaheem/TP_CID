@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import { UserService } from "../../services/v2/user.service";
 import { config } from '../../config/config';
-import {DB_connection}  from '../../data/db.data'
+import {DB_connection}  from '../../utils/db.util'
 import { User } from '../../models/v2/user.model';
 beforeAll(async () => {
     DB_connection(config.databaseUrl);

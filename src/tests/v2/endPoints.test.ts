@@ -1,10 +1,8 @@
 import request from 'supertest';
 import app from '../../app';
-import {DB_connection}  from '../../data/db.data'
+import {DB_connection}  from '../../utils/db.util'
 import { User } from '../../models/v2/user.model';
 import { AuthService } from '../../services/v2/auth.service';
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../../utils/jwt.util';
 import {describe, expect, test} from '@jest/globals';
 import { UserService } from "../../services/v2/user.service";
 import { config } from '../../config/config';

@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import { ProductService } from "../../services/v2/product.service";
 import { config } from '../../config/config';
-import {DB_connection}  from '../../data/db.data'
+import {DB_connection}  from '../../utils/db.util'
 import { Product } from '../../models/v2/product.model';
 let id: string;
 beforeAll(async () => {
