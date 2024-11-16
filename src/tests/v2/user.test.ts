@@ -1,23 +1,24 @@
 import {describe, expect, test} from '@jest/globals';
-import { ProductService } from "../../services/v2/product.service";
 import { UserService } from "../../services/v2/user.service";
 import { config } from '../../config/config';
 import {DB_connection}  from '../../data/db.data'
-import { Product } from '../../models/v2/product.model';
 import { User } from '../../models/v2/user.model';
 beforeAll(async () => {
-    console.log(config.databaseUrl);
     DB_connection(config.databaseUrl);
     await User.deleteMany({"name":"Test"});
 });
-describe("Create a new product", () => {
-    test("Should return HTTP code if product have been created", async () =>{
+afterAll(async () => {
+    await User.deleteMany({"name":"Test"});
+});
+describe("Create a new User", () => {
+    test("Should return HTTP code if user have been created", async () =>{
         const user = await UserService.createNewUser("Test", "test@gmail.com", "abc123");
         expect(user).toBe(201);
     })
 })
-describe("Get all products", ()=> {
-    test("Should return all products", async () =>{
+describe("Get all users", ()=> {
+    test("Should return all users", async () =>{
+        await User.deleteMany({"name":"AuthTest"});
         const users = await UserService.getAllUsers();
         expect(users?.length).toBe(1);
     })

@@ -23,7 +23,6 @@ app.use(express.json());
 // ICI que je fetch les données
 fetchDATA()
 // ICI que je fais la connexion a la base de donné
-console.log(config.databaseUrl)
 DB_connection(config.databaseUrl);
 
 // interface pour le nombre de vue d'une page
